@@ -1,4 +1,5 @@
-# periodic-table-vue
+# 🎉 PERIODIC TABLE 🎉
+<img src="./resources/periodic-table.png" width="200">
 
 ## Project setup
 ```
