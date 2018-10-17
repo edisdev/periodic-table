@@ -1,5 +1,5 @@
 # 🎉 PERIODIC TABLE 🎉
-<img src="./resources/periodic-table.png" width="200">
+<img src="./resources/periodic-table.png" width="500">
 
 ## Project setup
 ```
