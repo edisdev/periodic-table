@@ -46,7 +46,7 @@ export default {
     element: {
       type: Object,
       default() {
-        return {}
+        return {};
       }
     }
   },
@@ -54,24 +54,28 @@ export default {
   data() {
     return {
       isOpenedModel: false
-    }
+    };
   },
   methods: {
     closeTrigger() {
-      this.$emit('closeModal')
+      this.$emit("closeModal");
     }
   },
   mounted() {
-    window.addEventListener('click', (e) => {
-      const el = e.target.closest('.modal-container')
-      if (!el) { this.$emit('closeModal') }
-    })
+    window.addEventListener("click", e => {
+      const el = e.target.closest(".modal-container");
+      if (!el) {
+        this.$emit("closeModal");
+      }
+    });
   }
-}
+};
 </script>
 
 
-<style>
+<style lang="scss">
+@import "@/assets/config/variable.scss";
+
 .modal-mask {
   position: fixed;
   z-index: 9999;
@@ -79,9 +83,9 @@ export default {
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, .5);
+  background-color: rgba(0, 0, 0, 0.5);
   display: table;
-  transition: opacity .3s ease;
+  transition: opacity 0.3s ease;
 }
 
 .modal-wrapper {
@@ -96,8 +100,8 @@ export default {
   margin-left: auto;
   margin-right: auto;
   border-radius: 2px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, .33);
-  transition: all .3s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.33);
+  transition: all 0.3s ease;
   position: relative;
   color: #fff;
   padding: 20px;
@@ -106,7 +110,7 @@ export default {
 .modal-body {
   width: 100%;
   height: 100%;
-  border: 2px solid rgba(255, 255, 255, .5);
+  border: 2px solid rgba(255, 255, 255, 0.5);
   padding: 20px;
   display: flex;
   flex-direction: column;
@@ -114,136 +118,127 @@ export default {
   position: relative;
 }
 
-.modal-body .info .name_tr , .modal-body .info  .group_name{
-  font-size: 2em;
+.modal-body .info {
+  .name_tr,
+  .group_name {
+    font-size: 2em;
+  }
 }
 
-.modal-body .info .name_small {
-  font-size: 13em;
-  text-align: center;
-}
-.modal-body .info.small-size .name_small{
-  font-size: 9em;
-}
+.modal-body {
+  .info {
+    .name_small {
+      font-size: 13em;
+      text-align: center;
+    }
+    &.small-size .name_small {
+      font-size: 9em;
+    }
+    .detail {
+      display: flex;
+    }
+  }
+  .head {
+    display: flex;
+    justify-content: space-between;
+  }
+  .info {
+    .detail .number {
+      position: absolute;
+      right: 0;
+      bottom: 0;
+      padding: 20px;
+      background: #fff;
+      display: flex;
+      justify-content: flex-end;
+      align-items: flex-end;
+      font-size: 2.5em;
+      overflow: hidden;
+      width: 170px;
+      height: 170px;
+      &::after {
+        content: "";
+        position: absolute;
+        width: 290px;
+        height: 125px;
+        transform: rotate(-45deg);
+        top: 0;
+        right: -2px;
+        box-shadow: -1px -1px 10px -2px rgba(0, 0, 0, 0.5);
+      }
+      &.color-1 {
+        color: $non-matel;
+        &::after {
+          background: $non-matel;
+        }
+      }
+      &.color-2 {
+        color: $alkal-metal;
+        &::after {
+          background: $alkal-metal;
+        }
+      }
+      &.color-3 {
+        color: $alkaline-metal;
+        &::after {
+          background: $alkaline-metal;
+        }
+      }
 
-.modal-body .info .detail {
-  display: flex;
-}
-.modal-body .head {
-  display: flex;
-  justify-content: space-between;
-}
-.modal-body .info .detail .number {
-  position: absolute;
-  right: 0;
-  bottom: 0;
-  padding: 20px;
-  background: #fff;
-  display: flex;
-  justify-content: flex-end;
-  align-items: flex-end;
-  font-size: 2.5em;
-  overflow: hidden;
-  width: 170px;
-  height: 170px;
-}
+      &.color-4 {
+        color: $transition-metal;
+        &::after {
+          background: $transition-metal;
+        }
+      }
 
-.modal-body .info.small-size .detail .number{
-  font-size: 1.9em;
+      &.color-5 {
+        color: $metaloid;
+        &::after {
+          background: $metaloid;
+        }
+      }
+
+      &.color-6 {
+        color: $metal;
+        &::after {
+          background: $metal;
+        }
+      }
+
+      &.color-7 {
+        color: $halojen;
+        &::after {
+          background: $halojen;
+        }
+      }
+
+      &.color-8 {
+        color: $soygaz;
+        &::after {
+          background: $soygaz;
+        }
+      }
+
+      &.color-9 {
+        color: $lantanit;
+        &::after {
+          background: $lantanit;
+        }
+      }
+
+      &.color-10 {
+        color: $actinide;
+        &::after {
+          background: $actinide;
+        }
+      }
+    }
+    &.small-size .detail .number {
+      font-size: 1.9em;
+    }
+  }
 }
-
-
-.modal-body .info .detail .number::after {
-  content: "";
-  position: absolute;
-  width: 290px;
-  height: 125px;
-  transform: rotate(-45deg);
-  top: 0;
-  right: -2px;
-  box-shadow: -1px -1px 10px -2px rgba(0,0,0,0.5);
-}
-
-.modal-body .info .detail .number.color-1::after {
-  background: var(--non-matel);
-}
-
-.modal-body .info .detail .number.color-2::after {
-  background: var(--alkal-metal);
-}
-
-.modal-body .info .detail .number.color-3::after {
-  background: var(--alkaline-metal);
-}
-
-.modal-body .info .detail .number.color-4::after {
-  background: var(--transition-metal);
-}
-
-.modal-body .info .detail .number.color-5::after {
-  background: var(--metaloid);
-}
-
-.modal-body .info .detail .number.color-6::after {
-  background: var(--metal);
-}
-
-.modal-body .info .detail .number.color-7::after {
-  background: var(--halojen);
-}
-
-.modal-body .info .detail .number.color-8::after {
-  background: var(--soygaz);
-}
-
-.modal-body .info .detail .number.color-9::after {
-  background: var(--lantanit);
-}
-
-.modal-body .info .detail .number.color-10::after {
-  background: var(--actinide);
-}
-
-.modal-body .info .detail .number.color-1 {
-  color: var(--non-matel);
-}
-
-.modal-body .info .detail .number.color-2  {
-  color: var(--alkal-metal);
-}
-
-.modal-body .info .detail .number.color-3 {
-  color: var(--alkaline-metal);
-}
-
-.modal-body .info .detail .number.color-4 {
-  color: var(--transition-metal);
-}
-
-.modal-body .info .detail .number.color-5 {
-  color: var(--metaloid);
-}
-
-.modal-body .info .detail .number.color-6 {
-  color: var(--metal);
-}
-
-.modal-body .info .detail .number.color-7 {
-  color: var(--halojen);
-}
-
-.modal-body .info .detail .number.color-8 {
-  color: var(--soygaz);
-}
-
-.modal-body .info .detail .number.color-9 {
-  color: var(--lantanit);
-}
-
-.modal-body .info .detail .number.color-10 {
-  color: var(--actinide);
-}
-
 
 .modal-body .info .detail .molar {
   position: absolute;
@@ -256,46 +251,46 @@ export default {
   font-size: 15px;
 }
 
-.modal-container.color-1 {
-  background: var(--non-matel);
-}
+.modal-container {
+  &.color-1 {
+    background: $non-matel;
+  }
+  &.color-2 {
+    background: $alkal-metal;
+  }
 
-.modal-container.color-2  {
-  background: var(--alkal-metal);
-}
+  &.color-3 {
+    background: $alkaline-metal;
+  }
 
-.modal-container.color-3 {
-  background: var(--alkaline-metal);
-}
+  &.color-4 {
+    background: $transition-metal;
+  }
 
-.modal-container.color-4 {
-  background: var(--transition-metal);
-}
+  &.color-5 {
+    background: $metaloid;
+  }
 
-.modal-container.color-5 {
-  background: var(--metaloid);
-}
+  &.color-6 {
+    background: $metal;
+  }
 
-.modal-container.color-6 {
-  background: var(--metal);
-}
+  &.color-7 {
+    background: $halojen;
+  }
 
-.modal-container.color-7 {
-  background: var(--halojen);
-}
+  &.color-8 {
+    background: $soygaz;
+  }
 
-.modal-container.color-8 {
-  background: var(--soygaz);
-}
+  &.color-9 {
+    background: $lantanit;
+  }
 
-.modal-container.color-9 {
-  background: var(--lantanit);
+  &.color-10 {
+    background: $actinide;
+  }
 }
-
-.modal-container.color-10 {
-  background: var(--actinide);
-}
-
 
 .modal-default-button {
   position: absolute;
@@ -314,48 +309,49 @@ export default {
   border: 2px solid currentColor;
 }
 
-.modal-default-button.color-1 {
-  color: var(--non-matel);
-}
+.modal-default-button {
+  &.color-1 {
+    color: $non-matel;
+  }
+  &.color-2 {
+    color: $alkal-metal;
+  }
 
-.modal-default-button.color-2  {
-  color: var(--alkal-metal);
-}
+  &.color-3 {
+    color: $alkaline-metal;
+  }
 
-.modal-default-button.color-3 {
-  color: var(--alkaline-metal);
-}
+  &.color-4 {
+    color: $transition-metal;
+  }
 
-.modal-default-button.color-4 {
-  color: var(--transition-metal);
-}
+  &.color-5 {
+    color: $metaloid;
+  }
 
-.modal-default-button.color-5 {
-  color: var(--metaloid);
-}
+  &.color-6 {
+    color: $metal;
+  }
 
-.modal-default-button.color-6 {
-  color: var(--metal);
-}
+  &.color-7 {
+    color: $halojen;
+  }
 
-.modal-default-button.color-7 {
-  color: var(--halojen);
-}
+  &.color-8 {
+    color: $soygaz;
+  }
 
-.modal-default-button.color-8 {
-  color: var(--soygaz);
-}
+  &.color-9 {
+    color: $lantanit;
+  }
 
-.modal-default-button.color-9 {
-  color: var(--lantanit);
-}
-
-.modal-default-button.color-10 {
-  color: var(--actinide);
+  &.color-10 {
+    color: $actinide;
+  }
 }
 
 .modal-default-button:hover {
-  color: #b92b24;  
+  color: #b92b24;
 }
 
 .modal-enter {
@@ -372,4 +368,163 @@ export default {
   transform: scale(1.1);
 }
 
+.darkMode {
+  .modal-container {
+    &.color-1 {
+      background: $non-metal-dark;
+    }
+    &.color-2 {
+      background: $alkal-metal-dark;
+    }
+
+    &.color-3 {
+      background: $alkaline-metal-dark;
+    }
+
+    &.color-4 {
+      background: $transition-metal-dark;
+    }
+
+    &.color-5 {
+      background: $metaloid-dark;
+    }
+
+    &.color-6 {
+      background: $metal-dark;
+    }
+
+    &.color-7 {
+      background: $halojen-dark;
+    }
+
+    &.color-8 {
+      background: $soygaz-dark;
+    }
+
+    &.color-9 {
+      background: $lantanit-dark;
+    }
+
+    &.color-10 {
+      background: $actinide-dark;
+    }
+  }
+
+  .info {
+    .detail .number {
+      &.color-1 {
+        color: $non-metal-dark;
+        &::after {
+          background: $non-metal-dark;
+        }
+      }
+      &.color-2 {
+        color: $alkal-metal-dark;
+        &::after {
+          background: $alkal-metal-dark;
+        }
+      }
+      &.color-3 {
+        color: $alkaline-metal-dark;
+        &::after {
+          background: $alkaline-metal-dark;
+        }
+      }
+
+      &.color-4 {
+        color: $transition-metal-dark;
+        &::after {
+          background: $transition-metal-dark;
+        }
+      }
+
+      &.color-5 {
+        color: $metaloid-dark;
+        &::after {
+          background: $metaloid-dark;
+        }
+      }
+
+      &.color-6 {
+        color: $metal-dark;
+        &::after {
+          background: $metal-dark;
+        }
+      }
+
+      &.color-7 {
+        color: $halojen-dark;
+        &::after {
+          background: $halojen-dark;
+        }
+      }
+
+      &.color-8 {
+        color: $soygaz-dark;
+        &::after {
+          background: $soygaz-dark;
+        }
+      }
+
+      &.color-9 {
+        color: $lantanit-dark;
+        &::after {
+          background: $lantanit-dark;
+        }
+      }
+
+      &.color-10 {
+        color: $actinide-dark;
+        &::after {
+          background: $actinide-dark;
+        }
+      }
+    }
+    &.small-size .detail .number {
+      font-size: 1.9em;
+    }
+  }
+
+  .modal-default-button {
+    &.color-1 {
+      color: $non-metal-dark;
+    }
+    &.color-2 {
+      color: $alkal-metal-dark;
+    }
+
+    &.color-3 {
+      color: $alkaline-metal-dark;
+    }
+
+    &.color-4 {
+      color: $transition-metal-dark;
+    }
+
+    &.color-5 {
+      color: $metaloid-dark;
+    }
+
+    &.color-6 {
+      color: $metal-dark;
+    }
+
+    &.color-7 {
+      color: $halojen-dark;
+    }
+
+    &.color-8 {
+      color: $soygaz-dark;
+    }
+
+    &.color-9 {
+      color: $lantanit-dark;
+    }
+
+    &.color-10 {
+      color: $actinide-dark;
+    }
+  }
+
+}
 </style>

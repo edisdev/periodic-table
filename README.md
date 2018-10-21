@@ -1,4 +1,7 @@
 # 🎉 PERIODIC TABLE 🎉
+
+<img src="./resources/periodic-table-dark-mode" width="500">
+
 <img src="./resources/periodic-table.png" width="500">
 
 ## Project setup

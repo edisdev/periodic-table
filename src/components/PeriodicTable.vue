@@ -1,9 +1,92 @@
 <template>
   <section class="home">
-    <div class="Loading" v-if="isLoading"> 
+    <div class="Loading" v-if="isPeriodLoading"> 
       PERİODİK Tablo Hazırlanıyor ... 
     </div>
     <template v-else>
+    <div class="periodictable">
+      <button class="item"
+      v-for="el in  Elements.first" 
+      :key="el.name_small"
+      @click="openModal(el)"
+      @mouseover="showElement(el)"
+      :class="`color-${el.group_id}`">
+        <span class="small">{{ el.molar }}</span>
+        {{ el.name_small }}
+        <span class="el_number">{{ el.number }}</span>
+      </button>
+    </div>
+     <div class="periodictable">
+      <div class="elementinfo" v-if="info">
+        <div class="title">
+          <div class="sembol"
+           :class="`color-${info.group_id}`">
+            {{ info.name_small }}
+          </div>
+          <div class="name">
+            <h3>{{ info.name_tr }}</h3>
+            <span>{{ info.group_name }}</span>
+          </div>
+        </div>
+        <div class="detail">
+          <div class="d__item">
+            <p class="info">ATOM NUMARASI</p>
+            <P class="val" :class="`color-${info.group_id}`">{{ info.number }}</P>
+          </div>
+           <div class="d__item">
+            <p class="info">ATOMİK KÜTLESİ</p>
+            <P class="val" :class="`color-${info.group_id}`">{{ info.molar }} 
+              <span>g/mol</span>
+            </P>
+          </div>
+        </div>
+      </div>
+      <button 
+      type="button"
+      class="item"
+      v-for="el in  Elements.second" 
+      :key="el.name_small"
+      @click="openModal(el)"
+      @mouseover="showElement(el)"
+      :class="[{'second': el.column === 1 }, `color-${el.group_id}`]">
+        <span class="small">{{ el.molar }}</span>
+        {{ el.name_small }}
+        <span class="el_number">{{ el.number }}</span>
+      </button>
+     </div>
+     <div class="periodictable">
+        <button 
+        type="button"
+        class="item"
+        @click="openModal(el)"  
+        @mouseover="showElement(el)"
+        v-for="el in  Elements.body" 
+        :key="el.name_small"
+        :class="`color-${el.group_id}`">
+          <span class="small">{{ el.molar }}</span>
+          {{ el.name_small }}
+          <span class="el_number">{{ el.number }}</span>
+        </button>
+     </div>
+     <div class="periodictable p-footer">
+        <button 
+        type="button"
+        class="item" 
+        v-for="el in  Elements.bottom"
+        @click="openModal(el)"
+        @mouseover="showElement(el)"
+        :key="el.name_small"
+        :class="[{'x2' : el.column === 2, 'x': el.column === 16 }, `color-${el.group_id}`]">
+          <span class="small">{{ el.molar }}</span>
+          {{ el.name_small }}
+          <span class="el_number">{{ el.number }}</span>
+        </button>
+     </div>
+    </template>
+    <footer class="footer" v-if="!isPeriodLoading">
+      <div class="text">
+       <h3>Periyodik Tablo</h3>
+      </div>
       <div class="description">
         <div v-for="i in types" 
             :key="i.name"
@@ -12,57 +95,29 @@
             {{ i.name }}
         </div>
       </div>
-      <div class="periodictable">
-        <button class="item"
-        v-for="el in  Elements.first" 
-        :key="el.name_small"
-         @click="openModal(el)"
-        :class="`color-${el.group_id}`">
-          {{ el.name_small }}
-          <span class="el_number">{{ el.number }}</span>
-        </button>
-    </div>
-     <div class="periodictable">
-        <button 
-        type="button"
-        class="item"
-        v-for="el in  Elements.second" 
-        :key="el.name_small"
-        @click="openModal(el)"
-        :class="[{'second': el.column === 1 }, `color-${el.group_id}`]">
-          {{ el.name_small }}
-          <span class="el_number">{{ el.number }}</span>
-        </button>
-     </div>
-     <div class="periodictable">
-        <button 
-        type="button"
-        class="item"
-        @click="openModal(el)"
-        v-for="el in  Elements.body" 
-        :key="el.name_small"
-        :class="`color-${el.group_id}`">
-          {{ el.name_small }}
-          <span class="el_number">{{ el.number }}</span>
-        </button>
-     </div>
-     <div class="periodictable footer">
-        <button 
-        type="button"
-        class="item" 
-        v-for="el in  Elements.bottom"
-        @click="openModal(el)"
-        :key="el.name_small"
-        :class="[{'x2' : el.column === 2, 'x': el.column === 16 }, `color-${el.group_id}`]">
-          {{ el.name_small }}
-          <span class="el_number">{{ el.number }}</span>
-        </button>
-     </div>
-    </template>
-    <footer class="footer" v-if="!isLoading">
-       <div class="text">
-          Periodic Table (v.0.1) By <a href="https://github.com/edisdev" target="_blank">#edisdev</a>
+      <div class="end">
+        <div class="github">
+          <a href="https://github.com/edisdev/periodic-table" target="_blank">
+            <!-- Generated by IcoMoon.io -->
+            <svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 32 32">
+            <title>star-full</title>
+            <path fill="currentColor" d="M32 12.408l-11.056-1.607-4.944-10.018-4.944 10.018-11.056 1.607 8 7.798-1.889 11.011 9.889-5.199 9.889 5.199-1.889-11.011 8-7.798z"></path>
+            </svg>
+            Star
+          </a>
        </div>
+       <div class="text"> 
+        Periodic Table (v.0.2) By 
+        <a href="https://github.com/edisdev" target="_blank">#edisdev</a>
+       </div>
+       <button class="checkbox" 
+        @click="openDarkMode" 
+        :class="{'dark-active': darkMode}"
+        type="button">
+          <label v-if="darkMode">Dark Mode</label>
+          <label v-else>Light Mode</label>
+       </button>
+      </div>
     </footer>
     <modal :element="ModalData"
            v-if="showModal"
@@ -72,289 +127,619 @@
 
 <script>
 import Modal from './modal';
+import { mapGetters, mapActions, mapMutations } from 'vuex'
 
 export default {
   name: "PeriodicTable",
   data() {
     return {
       showModal: false,
-      Elements: {
-        first: [],
-        second: [],
-        body: [],
-        bottom: [],
-        ModalData: []
-      },
-      types: [{
-        id: 1,
-        name: 'Ametal'
-      },
-      {
-        id: 2,
-        name: 'Alkali Metal'
-      },
-      {
-        id: 3,
-        name: 'Alkali Toprak Metal'
-      },
-      {
-         id: 4,
-        name: 'Geçiş Metali'
-      },
-      {
-        id: 5,
-        name: 'Metal'
-      },
-      {
-        id: 6,
-        name: 'Yarı Metal'
-      },
-      {
-        id: 7,
-        name: 'Halojen'
-      }, 
-      {
-        id: 8,
-        name: 'Soygaz'
-      },
-      {
-        id: 9,
-        name: 'Lantanit'
-      },
-      {
-        id: 10,
-        name: 'Actinide'
-      }],
-      isLoading: false
+      ModalData: [],
+      info: null
     };
   },
   components: {
     Modal
   },
+  computed: {
+   ...mapGetters(['types', 'Elements', 'isPeriodLoading', 'darkMode'])
+  },
   methods: {
-    getElements() {
-      this.isLoading = true;
-      fetch("https://periodic-table-10001.herokuapp.com/api/v1/elements")
-        .then(response => response.json())
-        .then(res => {
-          this.Elements.first = res.data.filter(item => item.el_order < 3);
-          this.Elements.second = res.data.filter(
-            item => item.el_order > 2 && item.el_order < 19
-          );
-          this.Elements.body = res.data.filter(
-            item => item.el_order > 18 && item.el_order < 91
-          );
-          this.Elements.bottom = res.data.filter(item => item.el_order > 90);
-          this.isLoading = false;
-        });
-    },
+    ...mapActions(['getElements']),
+    ...mapMutations(['TOGGLE_DARK_MODE']),
     openModal(element) {
+      if (element.number === '57-71' || element.number === '89-103') {
+        return
+      }
       this.ModalData = element
+      this.info = element
       this.showModal = true
     },
     closeModal() {
       this.ModalData = []
       this.showModal = false
+    },
+    showElement(element) {
+      if (element.number === '57-71' || element.number === '89-103') {
+        return
+      }
+      this.info = element
+    },
+    openDarkMode() {
+      this.TOGGLE_DARK_MODE()
     }
   },
   async mounted() {
-    this.getElements();
+    await this.getElements();
   }
-};
+}
 </script>
 
-<style>
+
+<style lang="scss">
+@import '@/assets/config/variable.scss';
 
 .home {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100vh;
   padding: 20px;
 }
-.periodictable.title {
- margin-bottom: 50px;
- justify-content: center;
- transform: translateX(-10%);
+
+.elementinfo {
+  position: absolute;
+  left: calc(((#{$element-size} + .46vw) * 2) + .3vw);
+  bottom: 0;
+  width: calc(((#{$element-size} + .46vw) * 10) - .3vw);
+  display: flex;
+  z-index: 999;
+  flex-direction: column;
+  background: #defefe;
+  color: #000;
+  .title {
+    display: flex;
+    margin-left: 1rem;
+    .name {
+      padding: 1rem;
+      h3 {
+        font-weight: 500;
+        font-size: 1.5rem;
+        line-height: 1.1;
+        margin-bottom: .7rem;
+      }
+      span {
+        opacity: .4;
+        font-size: .9rem;
+      }
+    }
+    .sembol {
+      background: #35404d;
+      color: #fff;
+      width: 5rem;
+      height: 5rem;
+      display: flex;
+      font-size: 3vw;
+      align-items: center;
+      justify-content: center;
+      &.color-1 {
+        border-bottom: .4rem solid $non-matel;
+      }
+      &.color-2 {
+        border-bottom: .4rem solid $alkal-metal;
+      }
+      &.color-3 {
+        border-bottom: .4rem solid $alkaline-metal;
+      }
+      &.color-4 {
+        border-bottom: .4rem solid  $transition-metal;
+      }
+      &.color-5 {
+        border-bottom: .4rem solid $metaloid;
+      }
+      &.color-6 {
+        border-bottom: .4rem solid $metal;
+      }
+      &.color-7 {
+        border-bottom: .4rem solid $halojen;
+      }
+      &.color-8 {
+        border-bottom: .4rem solid $soygaz;
+      }
+      &.color-9 {
+        border-bottom: .4rem solid $lantanit;
+      }
+      &.color-10 {
+        border-bottom: .4rem solid $actinide;
+      }
+    }
+  }
+  .detail {
+    display: flex;
+    width: 100%;
+    margin-top: 20px;
+    .d__item {
+      width: 50%;
+      padding: 10px;
+      font-weight: 500;
+      .info {
+        opacity: .5;
+      }
+      .val {
+        &.color-1 {
+          color: $non-matel;
+        }
+        &.color-2 {
+          color: $alkal-metal;
+        }
+
+        &.color-3 {
+          color: $alkaline-metal;
+        }
+
+        &.color-4 {
+          color: $transition-metal;
+        }
+
+        &.color-5 {
+          color: $metaloid;
+        }
+
+        &.color-6 {
+          color: $metal;
+        }
+
+        &.color-7 {
+          color: $halojen;
+        }
+
+        &.color-8 {
+          color: $soygaz;
+        }
+
+        &.color-9 {
+          color: $lantanit;
+        }
+
+        &.color-10 {
+          color: $actinide;
+        }
+      }
+    }
+  }
 }
+
 .periodictable {
-  width: 100%;
+  width: 75vw;
   display: flex;
   flex-wrap: wrap;
   max-width: 100vw;
   position: relative;
   justify-content: space-between;
-}
-
-
-.periodictable .item {
-  width: var(--element-size);
-  height: var(--element-size);
-  margin: 1px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  box-shadow: 0;
-  border: 0;
-  cursor: pointer;
-  font-size: .9em;
-  font-weight: bold;
-  position: relative;
-  color: #fff;
-}
-
-.periodictable .item .el_number {
-  display: block;
-  font-size: .6em;
-  margin-top: 5px;
+  &.title {
+    margin-bottom: 50px;
+    justify-content: center;
+    transform: translateX(-10%);
+  }
+  .item {
+    width: $element-size;
+    height: $element-size;
+    margin: .23vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    box-shadow: 0;
+    border: 0;
+    cursor: pointer;
+    font-size: 1vw;
+    font-weight: bold;
+    position: relative;
+    color: #fff;
+    transform-origin: center;
+    transition: .2s all linear;
+    opacity: 1;
+    .el_number {
+      display: block;
+      font-size: 50%;
+      margin-top: 5px;
+      opacity: .5;
+    }
+  }
 }
 
 .description {
-  position: absolute;
-  left: calc(((var(--element-size) + 3px) * 2) + 30px);
-  top: calc(((var(--element-size) + 2px)*2) - 30px);
-  font-weight: bold;
   width: 100%;
-  max-width: calc((var(--element-size) + 2px) * 10);
-  display: flex;
-  flex-wrap: wrap;
-  z-index: 99;
-}
-
-.description .item {
-  display: flex;
-  align-items: center;
-  width: 25%;
-  margin-bottom: 10px;
-  font-size: 10px;
-}
-.description .item::before {
-  content: '';
-  display: inline-block;
-  width: 30px;
-  height: 20px;
-  margin-right: 5px;
-}
-
-.description .item.color-1::before {
-  background: var(--non-matel);
-}
-
-.description .item.color-2::before {
-  background: var(--alkal-metal)
-}
-
-.description .item.color-3::before {
-  background: var(--alkaline-metal)
-}
-
-.description .item.color-4::before {
-  background: var(--transition-metal);
-}
-
-.description .item.color-5::before {
-  background: var(--metaloid);
-}
-
-.description .item.color-6::before {
-  background: var(--metal);
-}
-
-.description .item.color-7::before {
-  background: var(--halojen);
-}
-
-.description .item.color-8::before {
-  background: var(--soygaz);
-}
-
-.description .item.color-9::before {
-  background: var(--lantanit);
-}
-
-.description .item.color-10::before {
-  background: var(--actinide);
+  flex-shrink: 0;
+  .item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    font-size: 1vw;
+    &::before {
+      content: '';
+      display: inline-block;
+      width: 30px;
+      height: 20px;
+      margin-right: 5px;
+    }
+    &.color-1::before {
+      background: $non-matel;
+    }
+    &.color-2::before {
+      background: $alkal-metal;
+    }
+    &.color-3::before {
+      background: $alkaline-metal;
+    }
+    &.color-4::before {
+      background: $transition-metal;
+    }
+    &.color-5::before {
+      background: $metaloid;
+    }
+    &.color-6::before {
+      background: $metal;
+    }
+    &.color-7::before {
+      background: $halojen;
+    }
+    &.color-8::before {
+      background: $soygaz;
+    }
+    &.color-9::before {
+      background: $lantanit;
+    }
+    &.color-10::before {
+      background: $actinide;
+    }
+  }
 }
 
 /* //  */
-.periodictable .item.color-1 {
-  background: var(--non-matel);
+
+.periodictable {
+  .item {
+    .small {
+      font-size: 50%;
+      opacity: .5;
+    }
+    &.color-1 {
+      background: rgba($non-matel, 0.9);
+      border: 1px solid $non-matel;
+    }
+    &.color-2 {
+      background: rgba($alkal-metal, 0.9);
+      border: 1px solid $alkal-metal;
+    }
+    &.color-3 {
+      background: rgba($alkaline-metal, 0.9);
+      border: 1px solid $alkaline-metal;
+    }
+    &.color-4 {
+      background: rgba($transition-metal, 0.9);
+      border: 1px solid  $transition-metal;
+    }
+    &.color-5 {
+      background: rgba($metaloid, 0.9);
+      border: 1px solid $metaloid;
+    }
+    &.color-6 {
+      background: rgba($metal, 0.9);
+      border: 1px solid $metal;
+    }
+    &.color-7 {
+      background: rgba($halojen, 0.9);
+      border: 1px solid $halojen;
+    }
+    &.color-8 {
+      background: rgba($soygaz, 0.9);
+       border: 1px solid $soygaz;
+    }
+    &.color-9 {
+      background: rgba($lantanit, 0.9);
+      border: 1px solid $lantanit;
+    }
+    &.color-10 {
+      background: rgba($actinide, 0.9);
+      border: 1px solid $actinide;
+    }
+
+    &:hover {
+      background: #323232 !important;
+      border-color: #000 !important;
+    }
+    &.second {
+      margin-right: calc(((#{$element-size} + 0.46vw) * 10) + 0.46vw);
+    }
+  }
+  &.p-footer {
+    margin-top: 20px;
+    .item {
+      &.x2 {
+        margin-left: calc((#{$element-size} +  0.46vw) * 2);
+      }
+      &.x {
+        margin-right: calc((#{$element-size} +  0.46vw));
+      }
+    }
+  }
 }
 
-.periodictable .item.color-2  {
-  background: var(--alkal-metal);
-}
-
-.periodictable .item.color-3 {
-  background: var(--alkaline-metal);
-}
-
-.periodictable .item.color-4 {
-  background: var(--transition-metal);
-}
-
-.periodictable .item.color-5 {
-  background: var(--metaloid);
-}
-
-.periodictable .item.color-6 {
-  background: var(--metal);
-}
-
-.periodictable .item.color-7 {
-  background: var(--halojen);
-}
-
-.periodictable .item.color-8 {
-  background: var(--soygaz);
-}
-
-.periodictable .item.color-9 {
-  background: var(--lantanit);
-}
-
-.periodictable .item.color-10 {
-  background: var(--actinide);
-}
-
-.periodictable .item:focus {
-  outline: 0;
-}
-
-.periodictable .item:hover {
-  background: linear-gradient(to bottom, #b5bdc8 0%,#828c95 36%,#28343b 100%);
-  transform-origin: center;
-  transform: scale(1.5); 
-  z-index: 9999;
-  color: #fff;
-
-}
-
-
-.periodictable .item.second{
-  margin-right: calc((var(--element-size) + 3px) * 10);
-}
-
-.periodictable.footer {
+.checkbox {
+  width: 70px;
+  height: 30px;
+  background: #fff;
+  border-radius: 30px;
+  position: relative;
+  margin-bottom: 10px;
   margin-top: 20px;
-}
-
-.periodictable.footer .item.x2 {
-  margin-left: calc((var(--element-size) + 2px) * 2);
-}
-
-.periodictable.footer .item.x {
-  margin-right: calc((var(--element-size) + 2px));
+  cursor: pointer;
+  transition: .3s all ease;
+  color: inherit;
+  border: 1.4px solid #000;
+  &::after {
+    content: '';
+    display: flex;
+    width: 20px;
+    height: 20px;
+    background: #000;
+    position: absolute;
+    left: 5px;
+    top: 3px;
+    border-radius: 50%;
+  }
+  &.dark-active {
+    background: #000;
+    border: 1.4px solid #fff;
+    &::after {
+      background: #fff;
+      right: 5px;
+      left: initial;
+    }
+  }
+  label {
+    position: absolute;
+    right: calc(-100% - 10px);
+    top: 4px;
+    font-size: 13px;
+    font-weight: 600;
+  }
 }
 
 .footer {
-  margin-top: 12px;
-  text-align: center;
+  display: flex;
+  color: inherit;
+  position: fixed;
+  flex-wrap: wrap;
+  align-items: center;
+  width: calc(25vw - 30px);
+  height: 100vh;
+  right: 0;
+  top: 0;
+  padding: 20px;
+  box-shadow: -2px 5px 10px rgba(#000, .3);
+  h3 {
+    font-size: 2vw;
+    line-height: 50px;
+    &::after {
+      content: '';
+      display: block;
+      width: 100%;
+      height: 1px;
+      background: currentColor;
+      opacity: 0.2;
+    }
+  }
+  .end {
+    flex-shrink: 0;
+    width: 100%;
+    align-self: flex-end;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .text {
+    font-size: 15px;
+    a {
+      color: inherit;
+      font-weight: bold;
+    }
+  }
 }
-.footer .text  {
-  font-size: 15px
+.github {
+  width: 100%;
+  a {
+    background: #323232;
+    color: #fff;
+    width: 100%;
+    display: flex;
+    padding: 9px;
+    font-size: 14px;
+    border-radius: 3px;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    margin-bottom: 30px;
+    font-weight: 500;
+    svg {
+      margin-right: 5px;
+    }
+  }
 }
 
-.footer .text a {
-  color: #000;
-  font-weight: bold;
-}
+//  --------- //
 
+.darkMode {
+  .periodictable {
+    .item {
+      opacity: .75;
+      &.color-1 {
+        background: rgba($non-metal-dark, 0.25);
+        border: 1px solid $non-metal-dark;
+      }
+      &.color-2 {
+        background: rgba($alkal-metal-dark, 0.25);
+        border: 1px solid $alkal-metal-dark
+      }
+      &.color-3 {
+        background: rgba($alkaline-metal-dark, 0.25);
+        border: 1px solid $alkaline-metal-dark;
+      }
+      &.color-4 {
+        background: rgba($transition-metal-dark, 0.25);
+        border: 1px solid $transition-metal-dark;
+      }
+      
+      &.color-5 {
+        background: rgba($metaloid-dark, 0.25);
+        border: 1px solid $metaloid-dark
+      }
+      
+      &.color-6 {
+        background: rgba($metal-dark, 0.25);
+        border: 1px solid $metal-dark
+      }
+      &.color-7 {
+        background: rgba($halojen-dark, 0.25);
+        border: 1px solid $halojen-dark
+      }
+      &.color-8 {
+        background: rgba($soygaz-dark, 0.25);
+        border: 1px solid $soygaz-dark
+      }
+      &.color-9 {
+        background: rgba($lantanit-dark, 0.25);
+        border: 1px solid $lantanit-dark;
+      }
+      &.color-10 {
+        background: rgba($actinide-dark, 0.25);
+        border: 1px solid $lantanit-dark
+      }
+    }
+  }
+  .description {
+    .item {
+      &.color-1::before {
+        background: $non-metal-dark;
+      }
+      &.color-2::before {
+        background: $alkal-metal-dark;
+      }
+      &.color-3::before {
+        background: $alkaline-metal-dark;
+      }
+      &.color-4::before {
+        background: $transition-metal-dark;
+      }
+      &.color-5::before {
+        background: $metaloid-dark;
+      }
+      &.color-6::before {
+        background: $metal-dark;
+      }
+      &.color-7::before {
+        background: $halojen-dark;
+      }
+      &.color-8::before {
+        background: $soygaz-dark;
+      }
+      &.color-9::before {
+        background: $lantanit-dark;
+      }
+      &.color-10::before {
+        background: $actinide-dark;
+      }
+    }
+  }
+  .footer {
+    background: #1e2f38;
+  }
+  .github {
+    a {
+      background: #eee;
+      color: #000;
+    }
+  }
+
+  .elementinfo {
+    background: #1e2f38;
+    color: #fff;
+    .sembol {
+      &.color-1 {
+        border-bottom: .4rem solid $non-metal-dark;
+      }
+      &.color-2 {
+        border-bottom: .4rem solid $alkal-metal-dark;
+      }
+      &.color-3 {
+        border-bottom: .4rem solid $alkaline-metal-dark;
+      }
+      &.color-4 {
+        border-bottom: .4rem solid  $transition-metal-dark;
+      }
+      &.color-5 {
+        border-bottom: .4rem solid $metaloid-dark;
+      }
+      &.color-6 {
+        border-bottom: .4rem solid $metal-dark;
+      }
+      &.color-7 {
+        border-bottom: .4rem solid $halojen-dark;
+      }
+      &.color-8 {
+        border-bottom: .4rem solid $soygaz-dark;
+      }
+      &.color-9 {
+        border-bottom: .4rem solid $lantanit-dark;
+      }
+      &.color-10 {
+        border-bottom: .4rem solid $actinide-dark;
+      }
+    }
+    .detail {
+      .val {
+        &.color-1 {
+          color: $non-metal-dark;
+        }
+        &.color-2 {
+          color: $alkal-metal-dark;
+        }
+
+        &.color-3 {
+          color: $alkaline-metal-dark;
+        }
+
+        &.color-4 {
+          color: $transition-metal-dark;
+        }
+
+        &.color-5 {
+          color: $metaloid-dark;
+        }
+
+        &.color-6 {
+          color: $metal-dark;
+        }
+
+        &.color-7 {
+          color: $halojen-dark;
+        }
+
+        &.color-8 {
+          color: $soygaz-dark;
+        }
+
+        &.color-9 {
+          color: $lantanit-dark;
+        }
+
+        &.color-10 {
+          color: $actinide-dark;
+        }
+      }
+    }
+  }
+
+}
 </style>

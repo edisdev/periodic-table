@@ -1,0 +1,50 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto+Mono:300,400,500,700&subset=latin-ext');@import url('https://fonts.googleapis.com/css?family=Roboto+Mono:300,400,500,700&subset=latin-ext');
+@import url('https://fonts.googleapis.com/css?family=Indie+Flower');
+
+@import './config/variable.scss';
+
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0
+}
+button:focus {
+  outline: 0;
+}
+
+#app {
+  font-family: 'Roboto Mono', monospace;
+  background: rgba(156, 39, 176, 0.05);
+  min-height: 100vh;
+  color: #323232;
+  &.darkMode {
+    background: #192229;
+    color: #fff;
+  }
+}
+
+.Loading {
+  display: flex;
+  height: 88vh;
+  justify-content: center;
+  align-items: center;
+  animation: color-change 20s infinite;
+  font-size: 3em;
+  font-weight: bold;
+  font-family: 'Indie Flower', cursive;
+}
+
+@keyframes color-change {
+  0% { color: $non-matel;}
+  10% { color: $alkal-metal; }
+  20% { color: $alkaline-metal; }
+  30% { color: $transition-metal; }
+  40% { color: $metaloid; }
+  50% { color: $metal; }
+  60% { color: $halojen; }
+  70% { color: $soygaz; }
+  80% { color: $lantanit; }
+  90% { color: $actinide; }
+  100% { color: $non-matel; }
+}
