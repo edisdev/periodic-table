@@ -450,7 +450,7 @@ export default {
       border-color: #000 !important;
     }
     &.second {
-      margin-right: calc(((#{$element-size} + 0.46vw) * 10) + 0.46vw);
+      margin-right: calc(((#{$element-size} + 0.46vw) * 10) + 0.69vw);
     }
   }
   &.p-footer {
