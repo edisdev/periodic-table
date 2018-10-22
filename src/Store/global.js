@@ -2,43 +2,53 @@ export default {
   state: {
     types: [{
       id: 1,
-      name: 'Ametal'
+      name: 'Ametal',
+      totalElements: 0
     },
     {
       id: 2,
-      name: 'Alkali Metal'
+      name: 'Alkali Metal',
+      totalElements: 0
     },
     {
       id: 3,
-      name: 'Alkali Toprak Metal'
+      name: 'Alkali Toprak Metal',
+      totalElements: 0
     },
     {
       id: 4,
-      name: 'Geçiş Metali'
+      name: 'Geçiş Metali',
+      totalElements: 0
     },
     {
       id: 5,
-      name: 'Metal'
+      name: 'Metal',
+      totalElements: 0
     },
     {
       id: 6,
-      name: 'Yarı Metal'
+      name: 'Yarı Metal',
+      totalElements: 0
     },
     {
       id: 7,
-      name: 'Halojen'
-    }, 
+      name: 'Halojen',
+      totalElements: 0
+    },
     {
       id: 8,
-      name: 'Soygaz'
+      name: 'Soygaz',
+      totalElements: 0
     },
     {
       id: 9,
-      name: 'Lantanit'
+      name: 'Lantanit',
+      totalElements: 0
     },
     {
       id: 10,
-      name: 'Actinide'
+      name: 'Actinide',
+      totalElements: 0
     }],
     isPeriodLoading: true,
     darkMode: true,
@@ -74,10 +84,21 @@ export default {
         .then(res => {
           commit('SET_ELEMENTS', res.data)
         })
+        .then(() => {
+          state.types.map(group => {
+            Object.keys(state.Elements).filter(key => {
+              const countOfElements = state.Elements[key].filter(el => el.group_id === group.id).length;
+              group.totalElements += countOfElements;
+            });
+
+            if (group.id === 9 || group.id === 10)
+              group.totalElements--;
+          });
+        })
       } catch (error) {
         /* eslint-disable */
         console.log(error)
-        /* eslint-disable-enabled */ 
+        /* eslint-disable-enabled */
       }
       finally {
         state.isPeriodLoading = false

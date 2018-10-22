@@ -1,12 +1,12 @@
 <template>
   <section class="home">
-    <div class="Loading" v-if="isPeriodLoading"> 
-      PERİODİK Tablo Hazırlanıyor ... 
+    <div class="Loading" v-if="isPeriodLoading">
+      PERİODİK Tablo Hazırlanıyor ...
     </div>
     <template v-else>
     <div class="periodictable">
       <button class="item"
-      v-for="el in  Elements.first" 
+      v-for="el in  Elements.first"
       :key="el.name_small"
       @click="openModal(el)"
       @mouseover="showElement(el)"
@@ -35,16 +35,16 @@
           </div>
            <div class="d__item">
             <p class="info">ATOMİK KÜTLESİ</p>
-            <P class="val" :class="`color-${info.group_id}`">{{ info.molar }} 
+            <P class="val" :class="`color-${info.group_id}`">{{ info.molar }}
               <span>g/mol</span>
             </P>
           </div>
         </div>
       </div>
-      <button 
+      <button
       type="button"
       class="item"
-      v-for="el in  Elements.second" 
+      v-for="el in  Elements.second"
       :key="el.name_small"
       @click="openModal(el)"
       @mouseover="showElement(el)"
@@ -55,12 +55,12 @@
       </button>
      </div>
      <div class="periodictable">
-        <button 
+        <button
         type="button"
         class="item"
-        @click="openModal(el)"  
+        @click="openModal(el)"
         @mouseover="showElement(el)"
-        v-for="el in  Elements.body" 
+        v-for="el in  Elements.body"
         :key="el.name_small"
         :class="`color-${el.group_id}`">
           <span class="small">{{ el.molar }}</span>
@@ -69,9 +69,9 @@
         </button>
      </div>
      <div class="periodictable p-footer">
-        <button 
+        <button
         type="button"
-        class="item" 
+        class="item"
         v-for="el in  Elements.bottom"
         @click="openModal(el)"
         @mouseover="showElement(el)"
@@ -88,11 +88,11 @@
        <h3>Periyodik Tablo</h3>
       </div>
       <div class="description">
-        <div v-for="i in types" 
+        <div v-for="i in types"
             :key="i.name"
             class="item"
             :class="`color-${i.id}`">
-            {{ i.name }}
+            {{ i.name }} ({{ i.totalElements }})
         </div>
       </div>
       <div class="end">
@@ -106,12 +106,12 @@
             Star
           </a>
        </div>
-       <div class="text"> 
-        Periodic Table (v.0.2) By 
+       <div class="text">
+        Periodic Table (v.0.2) By
         <a href="https://github.com/edisdev" target="_blank">#edisdev</a>
        </div>
-       <button class="checkbox" 
-        @click="openDarkMode" 
+       <button class="checkbox"
+        @click="openDarkMode"
         :class="{'dark-active': darkMode}"
         type="button">
           <label v-if="darkMode">Dark Mode</label>
@@ -126,8 +126,8 @@
 </template>
 
 <script>
-import Modal from './modal';
-import { mapGetters, mapActions, mapMutations } from 'vuex'
+import Modal from "./modal";
+import { mapGetters, mapActions, mapMutations } from "vuex";
 
 export default {
   name: "PeriodicTable",
@@ -142,42 +142,42 @@ export default {
     Modal
   },
   computed: {
-   ...mapGetters(['types', 'Elements', 'isPeriodLoading', 'darkMode'])
+    ...mapGetters(["types", "Elements", "isPeriodLoading", "darkMode"])
   },
   methods: {
-    ...mapActions(['getElements']),
-    ...mapMutations(['TOGGLE_DARK_MODE']),
+    ...mapActions(["getElements"]),
+    ...mapMutations(["TOGGLE_DARK_MODE"]),
     openModal(element) {
-      if (element.number === '57-71' || element.number === '89-103') {
-        return
+      if (element.number === "57-71" || element.number === "89-103") {
+        return;
       }
-      this.ModalData = element
-      this.info = element
-      this.showModal = true
+      this.ModalData = element;
+      this.info = element;
+      this.showModal = true;
     },
     closeModal() {
-      this.ModalData = []
-      this.showModal = false
+      this.ModalData = [];
+      this.showModal = false;
     },
     showElement(element) {
-      if (element.number === '57-71' || element.number === '89-103') {
-        return
+      if (element.number === "57-71" || element.number === "89-103") {
+        return;
       }
-      this.info = element
+      this.info = element;
     },
     openDarkMode() {
-      this.TOGGLE_DARK_MODE()
+      this.TOGGLE_DARK_MODE();
     }
   },
   async mounted() {
     await this.getElements();
   }
-}
+};
 </script>
 
 
 <style lang="scss">
-@import '@/assets/config/variable.scss';
+@import "@/assets/config/variable.scss";
 
 .home {
   display: flex;
@@ -189,9 +189,9 @@ export default {
 
 .elementinfo {
   position: absolute;
-  left: calc(((#{$element-size} + .46vw) * 2) + .3vw);
+  left: calc(((#{$element-size} + 0.46vw) * 2) + 0.3vw);
   bottom: 0;
-  width: calc(((#{$element-size} + .46vw) * 10) - .3vw);
+  width: calc(((#{$element-size} + 0.46vw) * 10) - 0.3vw);
   display: flex;
   z-index: 999;
   flex-direction: column;
@@ -206,11 +206,11 @@ export default {
         font-weight: 500;
         font-size: 1.5rem;
         line-height: 1.1;
-        margin-bottom: .7rem;
+        margin-bottom: 0.7rem;
       }
       span {
-        opacity: .4;
-        font-size: .9rem;
+        opacity: 0.4;
+        font-size: 0.9rem;
       }
     }
     .sembol {
@@ -223,34 +223,34 @@ export default {
       align-items: center;
       justify-content: center;
       &.color-1 {
-        border-bottom: .4rem solid $non-matel;
+        border-bottom: 0.4rem solid $non-matel;
       }
       &.color-2 {
-        border-bottom: .4rem solid $alkal-metal;
+        border-bottom: 0.4rem solid $alkal-metal;
       }
       &.color-3 {
-        border-bottom: .4rem solid $alkaline-metal;
+        border-bottom: 0.4rem solid $alkaline-metal;
       }
       &.color-4 {
-        border-bottom: .4rem solid  $transition-metal;
+        border-bottom: 0.4rem solid $transition-metal;
       }
       &.color-5 {
-        border-bottom: .4rem solid $metaloid;
+        border-bottom: 0.4rem solid $metaloid;
       }
       &.color-6 {
-        border-bottom: .4rem solid $metal;
+        border-bottom: 0.4rem solid $metal;
       }
       &.color-7 {
-        border-bottom: .4rem solid $halojen;
+        border-bottom: 0.4rem solid $halojen;
       }
       &.color-8 {
-        border-bottom: .4rem solid $soygaz;
+        border-bottom: 0.4rem solid $soygaz;
       }
       &.color-9 {
-        border-bottom: .4rem solid $lantanit;
+        border-bottom: 0.4rem solid $lantanit;
       }
       &.color-10 {
-        border-bottom: .4rem solid $actinide;
+        border-bottom: 0.4rem solid $actinide;
       }
     }
   }
@@ -263,7 +263,7 @@ export default {
       padding: 10px;
       font-weight: 500;
       .info {
-        opacity: .5;
+        opacity: 0.5;
       }
       .val {
         &.color-1 {
@@ -324,7 +324,7 @@ export default {
   .item {
     width: $element-size;
     height: $element-size;
-    margin: .23vw;
+    margin: 0.23vw;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -337,13 +337,13 @@ export default {
     position: relative;
     color: #fff;
     transform-origin: center;
-    transition: .2s all linear;
+    transition: 0.2s all linear;
     opacity: 1;
     .el_number {
       display: block;
       font-size: 50%;
       margin-top: 5px;
-      opacity: .5;
+      opacity: 0.5;
     }
   }
 }
@@ -357,7 +357,7 @@ export default {
     margin-bottom: 10px;
     font-size: 1vw;
     &::before {
-      content: '';
+      content: "";
       display: inline-block;
       width: 30px;
       height: 20px;
@@ -402,7 +402,7 @@ export default {
   .item {
     .small {
       font-size: 50%;
-      opacity: .5;
+      opacity: 0.5;
     }
     &.color-1 {
       background: rgba($non-matel, 0.9);
@@ -418,7 +418,7 @@ export default {
     }
     &.color-4 {
       background: rgba($transition-metal, 0.9);
-      border: 1px solid  $transition-metal;
+      border: 1px solid $transition-metal;
     }
     &.color-5 {
       background: rgba($metaloid, 0.9);
@@ -434,7 +434,7 @@ export default {
     }
     &.color-8 {
       background: rgba($soygaz, 0.9);
-       border: 1px solid $soygaz;
+      border: 1px solid $soygaz;
     }
     &.color-9 {
       background: rgba($lantanit, 0.9);
@@ -457,10 +457,10 @@ export default {
     margin-top: 20px;
     .item {
       &.x2 {
-        margin-left: calc((#{$element-size} +  0.46vw) * 2);
+        margin-left: calc((#{$element-size} + 0.46vw) * 2);
       }
       &.x {
-        margin-right: calc((#{$element-size} +  0.46vw));
+        margin-right: calc((#{$element-size} + 0.46vw));
       }
     }
   }
@@ -475,11 +475,11 @@ export default {
   margin-bottom: 10px;
   margin-top: 20px;
   cursor: pointer;
-  transition: .3s all ease;
+  transition: 0.3s all ease;
   color: inherit;
   border: 1.4px solid #000;
   &::after {
-    content: '';
+    content: "";
     display: flex;
     width: 20px;
     height: 20px;
@@ -518,12 +518,12 @@ export default {
   right: 0;
   top: 0;
   padding: 20px;
-  box-shadow: -2px 5px 10px rgba(#000, .3);
+  box-shadow: -2px 5px 10px rgba(#000, 0.3);
   h3 {
     font-size: 2vw;
     line-height: 50px;
     &::after {
-      content: '';
+      content: "";
       display: block;
       width: 100%;
       height: 1px;
@@ -573,14 +573,14 @@ export default {
 .darkMode {
   .periodictable {
     .item {
-      opacity: .75;
+      opacity: 0.75;
       &.color-1 {
         background: rgba($non-metal-dark, 0.25);
         border: 1px solid $non-metal-dark;
       }
       &.color-2 {
         background: rgba($alkal-metal-dark, 0.25);
-        border: 1px solid $alkal-metal-dark
+        border: 1px solid $alkal-metal-dark;
       }
       &.color-3 {
         background: rgba($alkaline-metal-dark, 0.25);
@@ -590,23 +590,23 @@ export default {
         background: rgba($transition-metal-dark, 0.25);
         border: 1px solid $transition-metal-dark;
       }
-      
+
       &.color-5 {
         background: rgba($metaloid-dark, 0.25);
-        border: 1px solid $metaloid-dark
+        border: 1px solid $metaloid-dark;
       }
-      
+
       &.color-6 {
         background: rgba($metal-dark, 0.25);
-        border: 1px solid $metal-dark
+        border: 1px solid $metal-dark;
       }
       &.color-7 {
         background: rgba($halojen-dark, 0.25);
-        border: 1px solid $halojen-dark
+        border: 1px solid $halojen-dark;
       }
       &.color-8 {
         background: rgba($soygaz-dark, 0.25);
-        border: 1px solid $soygaz-dark
+        border: 1px solid $soygaz-dark;
       }
       &.color-9 {
         background: rgba($lantanit-dark, 0.25);
@@ -614,7 +614,7 @@ export default {
       }
       &.color-10 {
         background: rgba($actinide-dark, 0.25);
-        border: 1px solid $lantanit-dark
+        border: 1px solid $lantanit-dark;
       }
     }
   }
@@ -667,34 +667,34 @@ export default {
     color: #fff;
     .sembol {
       &.color-1 {
-        border-bottom: .4rem solid $non-metal-dark;
+        border-bottom: 0.4rem solid $non-metal-dark;
       }
       &.color-2 {
-        border-bottom: .4rem solid $alkal-metal-dark;
+        border-bottom: 0.4rem solid $alkal-metal-dark;
       }
       &.color-3 {
-        border-bottom: .4rem solid $alkaline-metal-dark;
+        border-bottom: 0.4rem solid $alkaline-metal-dark;
       }
       &.color-4 {
-        border-bottom: .4rem solid  $transition-metal-dark;
+        border-bottom: 0.4rem solid $transition-metal-dark;
       }
       &.color-5 {
-        border-bottom: .4rem solid $metaloid-dark;
+        border-bottom: 0.4rem solid $metaloid-dark;
       }
       &.color-6 {
-        border-bottom: .4rem solid $metal-dark;
+        border-bottom: 0.4rem solid $metal-dark;
       }
       &.color-7 {
-        border-bottom: .4rem solid $halojen-dark;
+        border-bottom: 0.4rem solid $halojen-dark;
       }
       &.color-8 {
-        border-bottom: .4rem solid $soygaz-dark;
+        border-bottom: 0.4rem solid $soygaz-dark;
       }
       &.color-9 {
-        border-bottom: .4rem solid $lantanit-dark;
+        border-bottom: 0.4rem solid $lantanit-dark;
       }
       &.color-10 {
-        border-bottom: .4rem solid $actinide-dark;
+        border-bottom: 0.4rem solid $actinide-dark;
       }
     }
     .detail {
@@ -740,6 +740,5 @@ export default {
       }
     }
   }
-
 }
 </style>
