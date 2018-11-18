@@ -14,7 +14,7 @@ export default {
     PeriodicTable
   },
   computed: {
-    ...mapGetters(['darkMode'])
+    ...mapGetters(['darkMode', 'lang']),
   }
 }
 </script>
