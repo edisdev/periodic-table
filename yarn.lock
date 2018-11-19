@@ -4675,6 +4675,10 @@ number-is-nan@^1.0.0:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/number-is-nan/-/number-is-nan-1.0.1.tgz#097b602b53422a522c1afb8790318336941a011d"
 
+o.disk@^2.0.4:
+  version "2.0.4"
+  resolved "https://registry.yarnpkg.com/o.disk/-/o.disk-2.0.4.tgz#129caec29379091c6fd3cb48f19750dc6db729cc"
+
 oauth-sign@~0.9.0:
   version "0.9.0"
   resolved "https://registry.yarnpkg.com/oauth-sign/-/oauth-sign-0.9.0.tgz#47a7b016baa68b5fa0ecf3dee08a85c679ac6455"
@@ -6779,6 +6783,10 @@ vue-eslint-parser@^2.0.3:
 vue-hot-reload-api@^2.3.0:
   version "2.3.1"
   resolved "https://registry.yarnpkg.com/vue-hot-reload-api/-/vue-hot-reload-api-2.3.1.tgz#b2d3d95402a811602380783ea4f566eb875569a2"
+
+vue-i18n@^8.3.2:
+  version "8.3.2"
+  resolved "https://registry.yarnpkg.com/vue-i18n/-/vue-i18n-8.3.2.tgz#8878a622858060a1723fca1e735053854accdd52"
 
 vue-loader@^15.4.2:
   version "15.4.2"

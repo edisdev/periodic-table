@@ -25,7 +25,7 @@
           </div>
         </div>
       </div>
-      <div class="elementinfo" v-else>
+      <div class="elementinfo" v-if="info.group_id && !blur">
         <div class="title">
           <div class="sembol"
            :class="`color-${info.group_id}`">
@@ -117,7 +117,7 @@
        </div>
        <div class="text"> 
         {{ $t('UI.name') }} (v.0.3) By 
-        <a href="https://github.com/edisdev" target="_blank">#edisdev</a>
+        <a href="https://github.com/edisdev" target="_blank">@edisdev</a>
         -
         <a href="https://github.com/alpeer" target="_blank">@alpeer</a>
        </div>
