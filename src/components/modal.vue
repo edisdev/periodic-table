@@ -18,8 +18,8 @@
             <div class="info"
             :class="{'small-size' : element.molar === null }">
               <div class="head">
-                <h3 class="name_tr">{{ element.name_tr }}</h3>
-                <h3 class="group_name">{{ element.group_name }}</h3>
+                <h3 class="name_tr">{{ element['name_'+(lang=='en'?'ing':lang)] }}</h3>
+                <h3 class="group_name">{{ $t('types.'+element.group_id) }}</h3>
               </div>
               <h1 class="name_small">{{ element.name_small }}</h1>
               <div class="detail">
@@ -41,6 +41,8 @@
 </template>
 
 <script>
+import {mapGetters} from 'vuex'
+
 export default {
   props: {
     element: {
@@ -55,6 +57,9 @@ export default {
     return {
       isOpenedModel: false
     };
+  },
+  computed: {
+   ...mapGetters(['lang'])
   },
   methods: {
     closeTrigger() {
@@ -101,7 +106,7 @@ export default {
   margin-right: auto;
   border-radius: 2px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.33);
-  transition: all 0.3s ease;
+  transition: all 0.2s cubic-bezier(1,.53,0,.52);
   position: relative;
   color: #fff;
   padding: 20px;
@@ -110,7 +115,7 @@ export default {
 .modal-body {
   width: 100%;
   height: 100%;
-  border: 2px solid rgba(255, 255, 255, 0.5);
+  border: 2px solid #FFF;
   padding: 20px;
   display: flex;
   flex-direction: column;
@@ -294,11 +299,12 @@ export default {
 
 .modal-default-button {
   position: absolute;
-  top: -50px;
-  right: -25px;
+  z-index:100;
+  top: 8px;
+  right: 8px;
   font-weight: bold;
-  width: 40px;
-  height: 40px;
+  width: 34px;
+  height: 34px;
   font-size: 20px;
   cursor: pointer;
   display: flex;
@@ -306,7 +312,8 @@ export default {
   justify-content: center;
   background: #fff;
   border-radius: 50%;
-  border: 2px solid currentColor;
+  box-shadow: 0 0 0 6px;
+  border: none;
 }
 
 .modal-default-button {
@@ -348,10 +355,7 @@ export default {
   &.color-10 {
     color: $actinide;
   }
-}
-
-.modal-default-button:hover {
-  color: #b92b24;
+  &:active {opacity:.5}
 }
 
 .modal-enter {
@@ -488,6 +492,7 @@ export default {
   .modal-default-button {
     &.color-1 {
       color: $non-metal-dark;
+
     }
     &.color-2 {
       color: $alkal-metal-dark;
