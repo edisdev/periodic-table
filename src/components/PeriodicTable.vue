@@ -17,7 +17,7 @@
       </button>
     </div>
      <div class="periodictable">
-      <div class="elementinfo group" v-if="blur&&info.group_id&&info.group_id!=blur">
+      <div class="elementinfo group" v-if="blur&&info.group_id">
         <div class="title">
           <div class="sembol"
              :class="`color-${blur}`">
@@ -98,7 +98,7 @@
       <div class="description" @mouseleave="!blurset?blur=null:null">
         <div v-for="i in 10" 
             :key="$t('types.' + i)"
-            class="item"
+            class="item types"
             @mouseover="!blurset?blurOthers(i):null"
             @click="(blurOthers(i));(blurset=blurset?0:1)"
             :class="['color-' + i,{blur:blur&&blur!=i,set:blurset}]">
@@ -410,6 +410,9 @@ export default {
     align-items: center;
     margin-bottom: 10px;
     font-size: 1vw;
+    &.types {
+      cursor: pointer;
+    }
     &.blur{
       opacity:.5;
       &.set{
